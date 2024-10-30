@@ -14,14 +14,14 @@ datasource db {
 }
 
 model User {
-  id            String     @id @default(uuid())
+  id            String    @id @default(uuid())
   name          String
-  email         String     @unique
+  email         String    @unique
   password_hash String
-  profile       Profile    @default(Deliverer)
-  active        Boolean    @default(false)
-  created_at    DateTime   @default(now())
-  update_at     DateTime   @updatedAt
+  profile       Profile   @default(Deliverer)
+  active        Boolean   @default(false)
+  created_at    DateTime  @default(now())
+  update_at     DateTime  @updatedAt
   Vehicle       Vehicle[]
   Freight       Freight[]
   Requests      Request[]
@@ -29,8 +29,8 @@ model User {
 
 model Vehicle {
   id         String   @id @default(uuid())
-  user_id    String?
-  User       User?    @relation(fields: [user_id], references: [id])
+  user_id    String
+  User       User     @relation(fields: [user_id], references: [id])
   name       String
   plate      String   @unique
   year       Int
@@ -41,8 +41,8 @@ model Vehicle {
 
 model Freight {
   id               String        @id @default(uuid())
-  company_id       String?
-  User             User?         @relation(fields: [company_id], references: [id])
+  company_id       String
+  User             User         @relation(fields: [company_id], references: [id])
   distance         BigInt
   weight           Float
   value            Float
@@ -51,15 +51,15 @@ model Freight {
   posted_at        DateTime      @default(now())
   update_at        DateTime      @updatedAt
   can_value_change Boolean       @default(true)
-  Request         Request[]
+  Request          Request[]
 }
 
 model Request {
   id           String        @id @default(uuid())
-  deliverer_id String?
-  User         User?         @relation(fields: [deliverer_id], references: [id])
-  freight_id   String?
-  Freight      Freight?      @relation(fields: [freight_id], references: [id])
+  deliverer_id String
+  User         User         @relation(fields: [deliverer_id], references: [id])
+  freight_id   String
+  Freight      Freight      @relation(fields: [freight_id], references: [id])
   Status       StatusRequest @default(Pendente)
   requested_at DateTime      @default(now())
   update_at    DateTime      @updatedAt
