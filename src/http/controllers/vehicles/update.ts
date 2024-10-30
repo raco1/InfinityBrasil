@@ -13,7 +13,7 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
   })
   const { name, plate, year, type } = updateBodySchema.parse(request.body)
 
-  const update_at = new Date()
+  const updated_at = new Date()
   try {
     const vehiclesRepository = new PrismaVehiclesRepository()
 
@@ -24,7 +24,7 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
       plate,
       year,
       type,
-      update_at,
+      updated_at,
     })
   } catch (err) {
     throw new InvalidCredentialsError()

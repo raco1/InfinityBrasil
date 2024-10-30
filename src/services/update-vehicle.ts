@@ -8,7 +8,7 @@ interface UpdateUseServiceRequest {
   plate: string
   year: number
   type: 'Caminhonete' | 'Furgao' | 'Caminhao'
-  update_at: Date
+  updated_at: Date
 }
 interface UpdateUseServiceResponse {
   vehicle: Vehicle
@@ -24,7 +24,7 @@ export class UpdateUseService {
     plate,
     year,
     type,
-    update_at,
+    updated_at,
   }: UpdateUseServiceRequest): Promise<UpdateUseServiceResponse> {
     const vehicle = await this.vehiclesRepository.findByPlate(plate)
 
@@ -45,7 +45,7 @@ export class UpdateUseService {
       plate,
       year,
       type,
-      update_at,
+      updated_at,
     })
     return { vehicle }
   }

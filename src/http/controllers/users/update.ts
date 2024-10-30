@@ -24,7 +24,7 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
   const { name, email, password, old_password, active } =
     updateBodySchema.parse(request.body)
 
-  const update_at = new Date()
+  const updated_at = new Date()
   try {
     const usersRepository = new PrismaUsersRepository()
 
@@ -37,7 +37,7 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
       password,
       old_password,
       active,
-      update_at,
+      updated_at,
     })
   } catch (err) {
     throw new InvalidCredentialsError()

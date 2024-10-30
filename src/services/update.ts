@@ -11,7 +11,7 @@ interface UpdateUseServiceRequest {
   password: string
   old_password: string
   active: boolean
-  update_at: Date
+  updated_at: Date
 }
 interface UpdateUseServiceResponse {
   user: User
@@ -29,7 +29,7 @@ export class UpdateUseService {
     password,
     old_password,
     active,
-    update_at,
+    updated_at,
   }: UpdateUseServiceRequest): Promise<UpdateUseServiceResponse> {
     const user = await this.usersRepository.findById(id)
 
@@ -68,7 +68,7 @@ export class UpdateUseService {
       email,
       active,
       password_hash: user.password_hash,
-      update_at,
+      updated_at,
     })
     return { user }
   }
