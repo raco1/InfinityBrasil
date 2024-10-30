@@ -34,7 +34,7 @@ model Vehicle {
   name       String
   plate      String   @unique
   year       Int
-  capacity   Int
+  type       Type     @default(Caminhonete)
   created_at DateTime @default(now())
   update_at  DateTime @updatedAt
 }
@@ -42,10 +42,10 @@ model Vehicle {
 model Freight {
   id               String        @id @default(uuid())
   company_id       String
-  User             User         @relation(fields: [company_id], references: [id])
+  User             User          @relation(fields: [company_id], references: [id])
   distance         BigInt
-  weight           Float
   value            Float
+  fee              Float
   status           StatusFreight @default(Disponivel)
   delivery_date    DateTime
   posted_at        DateTime      @default(now())
@@ -57,9 +57,9 @@ model Freight {
 model Request {
   id           String        @id @default(uuid())
   deliverer_id String
-  User         User         @relation(fields: [deliverer_id], references: [id])
+  User         User          @relation(fields: [deliverer_id], references: [id])
   freight_id   String
-  Freight      Freight      @relation(fields: [freight_id], references: [id])
+  Freight      Freight       @relation(fields: [freight_id], references: [id])
   Status       StatusRequest @default(Pendente)
   requested_at DateTime      @default(now())
   update_at    DateTime      @updatedAt
@@ -68,6 +68,12 @@ model Request {
 enum Profile {
   Deliverer
   Company
+}
+
+enum Type {
+  Caminhonete
+  Furgao
+  Caminhao
 }
 
 enum StatusFreight {
