@@ -3,7 +3,7 @@ import { UserRepository } from '@/repositories/users-repository'
 import { User } from '@prisma/client'
 import { hash } from 'bcryptjs'
 
-interface RegisterUseServiceRequest {
+export interface RegisterUseServiceRequest {
   name: string
   email: string
   password: string

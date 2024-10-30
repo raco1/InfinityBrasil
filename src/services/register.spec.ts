@@ -5,16 +5,19 @@ import { compare } from 'bcryptjs'
 describe('Register Service', () => {
   it('should hash user password upon registration', async () => {
     const registerUseService = new RegisterUseService({
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       async findByEmail(_email) {
         return null
       },
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       async findById(_id) {
         return null
       },
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       async update(_id, _data) {
         return null
       },
