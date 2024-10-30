@@ -19,11 +19,10 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
     email: z.string().email(),
     password: z.string(),
     old_password: z.string().min(6),
-    active: z.boolean()
+    active: z.boolean(),
   })
-  const { name, email, password, old_password, active} = updateBodySchema.parse(
-    request.body,
-  )
+  const { name, email, password, old_password, active } =
+    updateBodySchema.parse(request.body)
 
   const update_at = new Date()
   try {

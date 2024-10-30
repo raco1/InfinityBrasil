@@ -11,10 +11,10 @@ export async function createVehicle(
     name: z.string(),
     plate: z.string().max(6),
     year: z.number(),
-    capacity: z.number(),
+    type: z.enum(['Caminhonete', 'Furgao', 'Caminhao']),
   })
 
-  const { name, plate, year, capacity } = createVehicleBodySchema.parse(
+  const { name, plate, year, type } = createVehicleBodySchema.parse(
     request.body,
   )
 
@@ -28,7 +28,7 @@ export async function createVehicle(
     name,
     plate,
     year,
-    capacity,
+    type,
   })
 
   return reply.status(201).send()

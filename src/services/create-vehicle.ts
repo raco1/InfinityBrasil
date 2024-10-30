@@ -7,7 +7,7 @@ interface CreateVehicleUseServiceRequest {
   name: string
   plate: string
   year: number
-  capacity: number
+  type: 'Caminhonete' | 'Furgao' | 'Caminhao'
 }
 
 interface CreateVehicleUseServiceResponse {
@@ -24,7 +24,7 @@ export class CreateVehicleUseService {
     name,
     plate,
     year,
-    capacity,
+    type,
   }: CreateVehicleUseServiceRequest): Promise<CreateVehicleUseServiceResponse> {
     const existingVehicle = await this.vehiclesRepository.findByPlate(plate)
 
@@ -37,7 +37,7 @@ export class CreateVehicleUseService {
       name,
       plate,
       year,
-      capacity,
+      type,
     })
 
     return { vehicle }
