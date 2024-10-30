@@ -4,12 +4,13 @@ import { compare, hash } from 'bcryptjs'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 import { EmailAlreadyBeingUsedError } from './errors/email-already-being-used-error'
 
-interface RegisterUseServiceRequest {
+interface UpdateUseServiceRequest {
   id: string
   name: string
   email: string
   password: string
   old_password: string
+  active: boolean
   update_at: Date
 }
 interface UpdateUseServiceResponse {
@@ -27,8 +28,9 @@ export class UpdateUseService {
     email,
     password,
     old_password,
+    active,
     update_at,
-  }: RegisterUseServiceRequest): Promise<UpdateUseServiceResponse> {
+  }: UpdateUseServiceRequest): Promise<UpdateUseServiceResponse> {
     const user = await this.usersRepository.findById(id)
 
     if (!user) {
@@ -43,6 +45,7 @@ export class UpdateUseService {
 
     user.name = name ?? user.name
     user.email = email ?? user.email
+    user.active = active ?? user.active
 
     if (password && !old_password) {
       throw new Error(
@@ -50,15 +53,20 @@ export class UpdateUseService {
       )
     }
     if (password && old_password) {
-      const checkPasswords = await compare(old_password, user.password_hash)
+      const checkPasswords = await compare(old_password, password)
       if (!checkPasswords) {
         throw new Error('A senha antiga não confere.')
       }
-      user.password_hash = await hash(password, 6)
+      if (password === '') {
+        password = old_password
+      } else {
+        user.password_hash = await hash(password, 6)
+      }
     }
     await this.usersRepository.update(id, {
       name,
       email,
+      active,
       password_hash: user.password_hash,
       update_at,
     })
