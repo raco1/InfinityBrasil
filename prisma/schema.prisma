@@ -21,7 +21,7 @@ model User {
   profile       Profile   @default(Deliverer)
   active        Boolean   @default(false)
   created_at    DateTime  @default(now())
-  update_at     DateTime  @updatedAt
+  updated_at    DateTime  @updatedAt @default(now())
   Vehicle       Vehicle[]
   Freight       Freight[]
   Requests      Request[]
@@ -36,7 +36,7 @@ model Vehicle {
   year       Int
   type       Type     @default(Caminhonete)
   created_at DateTime @default(now())
-  update_at  DateTime @updatedAt
+  updated_at DateTime @updatedAt @default(now())
 }
 
 model Freight {
@@ -45,11 +45,10 @@ model Freight {
   User             User          @relation(fields: [company_id], references: [id])
   distance         BigInt
   value            Float
-  fee              Float
+  fee              Float?
   status           StatusFreight @default(Disponivel)
-  delivery_date    DateTime
   posted_at        DateTime      @default(now())
-  update_at        DateTime      @updatedAt
+  updated_at       DateTime      @updatedAt
   can_value_change Boolean       @default(true)
   Request          Request[]
 }
@@ -62,7 +61,7 @@ model Request {
   Freight      Freight       @relation(fields: [freight_id], references: [id])
   Status       StatusRequest @default(Pendente)
   requested_at DateTime      @default(now())
-  update_at    DateTime      @updatedAt
+  updated_at   DateTime      @updatedAt
 }
 
 enum Profile {
