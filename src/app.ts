@@ -1,11 +1,12 @@
 import { vehiclesRoutes } from './http/controllers/vehicles/routes'
+import { freightsRoutes } from './http/controllers/freights/routes'
+import { requestsRoutes } from './http/controllers/requests/routes'
 import { usersRoutes } from './http/controllers/users/routes'
 import fastifyCookie from '@fastify/cookie'
 import fastifyJwt from '@fastify/jwt'
 import { ZodError } from 'zod'
 import fastify from 'fastify'
 import { env } from './env'
-import { freightsRoutes } from './http/controllers/freights/route'
 
 export const app = fastify()
 
@@ -25,6 +26,7 @@ app.register(fastifyCookie)
 app.register(usersRoutes)
 app.register(vehiclesRoutes)
 app.register(freightsRoutes)
+app.register(requestsRoutes)
 
 app.setErrorHandler((error, _request, reply) => {
   if (error instanceof ZodError) {
