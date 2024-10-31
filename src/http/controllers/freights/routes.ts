@@ -3,6 +3,7 @@ import { verifyJWT } from '@/http/middlewares/verify-jwt'
 import { FastifyInstance } from 'fastify'
 import { register } from './register'
 import { freights } from './freights'
+import { update } from './update'
 
 export async function freightsRoutes(app: FastifyInstance) {
   //* Registrar um novo frete (Somente empresas) */
@@ -19,5 +20,11 @@ export async function freightsRoutes(app: FastifyInstance) {
       onRequest: [verifyJWT, verifyUserProfile('Deliverer')],
     },
     freights,
+  )
+
+  app.patch(
+    '/freight/update',
+    { onRequest: verifyUserProfile('Deliverer') },
+    update,
   )
 }

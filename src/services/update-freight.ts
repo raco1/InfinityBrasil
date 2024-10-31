@@ -1,13 +1,10 @@
+/* eslint-disable prettier/prettier */
 import { FreightRepository } from '@/repositories/freights-repository'
 import { Freight } from '@prisma/client'
 
 interface UpdateFreightUseServiceRequest {
   company_id: string
-  distance: number
-  value: number
-  fee: number
   status: 'Disponivel' | 'Em_andamento' | 'Entregue'
-  can_value_change: boolean
   updated_at: Date
 }
 
@@ -22,11 +19,7 @@ export class UpdateFreightUseService {
 
   async execute({
     company_id,
-    distance,
-    value,
-    fee,
     status,
-    can_value_change,
     updated_at,
   }: UpdateFreightUseServiceRequest): Promise<UpdateFreightUseServiceResponse> {
     const isFreightExists =
@@ -38,11 +31,7 @@ export class UpdateFreightUseService {
 
     const freight = await this.freightsRepository.create({
       company_id: isFreightExists.company_id,
-      distance,
-      value,
-      fee,
       status,
-      can_value_change,
       updated_at,
     })
 
