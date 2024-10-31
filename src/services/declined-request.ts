@@ -29,11 +29,12 @@ export class DeclineDeliveryRequestService {
       deliveryRequest.deliverer_id,
     )
     if (!vehicle) throw new Error('Vehicle not found')
-    // Calcular o valor e a taxa
 
+    const updated_at = new Date()
     // Atualizar o frete com os novos valores
     return await this.requestsRepository.update(deliveryRequest.id, {
       Status: 'Rejeitado',
+      updated_at,
     })
   }
 }

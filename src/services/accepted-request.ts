@@ -31,6 +31,8 @@ export class AcceptDeliveryRequestService {
     )
     if (!vehicle) throw new Error('Vehicle not found')
     // Calcular o valor e a taxa
+
+    const updated_at = new Date()
     const { distance } = freight
     const { type: vehicleType } = vehicle
 
@@ -67,6 +69,7 @@ export class AcceptDeliveryRequestService {
       fee: freight.fee,
       can_value_change: false,
       status: 'Em_andamento',
+      updated_at,
     })
   }
 }
