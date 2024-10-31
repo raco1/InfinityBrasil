@@ -44,7 +44,7 @@ model Freight {
   company_id       String
   User             User          @relation(fields: [company_id], references: [id])
   distance         BigInt
-  value            Float
+  value            Float?
   fee              Float?
   status           StatusFreight @default(Disponivel)
   posted_at        DateTime      @default(now())
