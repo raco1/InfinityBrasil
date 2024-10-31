@@ -43,7 +43,7 @@ model Freight {
   id               String        @id @default(uuid())
   company_id       String
   User             User          @relation(fields: [company_id], references: [id])
-  distance         Int?
+  distance         Int
   value            Float?
   fee              Float?
   status           StatusFreight @default(Disponivel)
