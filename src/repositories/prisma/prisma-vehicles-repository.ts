@@ -12,6 +12,23 @@ export class PrismaVehiclesRepository implements VehicleRepository {
     return vehicle
   }
 
+  async findByDelivererId(user_id: string) {
+    return prisma.vehicle.findFirst({
+      where: {
+        user_id,
+      },
+    })
+  }
+
+  async findById(id: string) {
+    const vehicle = await prisma.vehicle.findUnique({
+      where: {
+        id,
+      },
+    })
+    return vehicle
+  }
+
   async create(data: Prisma.VehicleUncheckedCreateInput) {
     const vehicle = await prisma.vehicle.create({
       data,
