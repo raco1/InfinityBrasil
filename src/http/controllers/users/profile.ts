@@ -1,16 +1,12 @@
-import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository'
-import { GetUserProfileService } from '@/services/get-user-profile'
+import { makeGetUserProfileService } from '@/services/factory/make-get-user-profile-service'
 import { FastifyRequest, FastifyReply } from 'fastify'
 
 export async function profile(request: FastifyRequest, reply: FastifyReply) {
-  const userRepository = new PrismaUsersRepository()
-
-  const getUserProfile = new GetUserProfileService(userRepository)
+  const getUserProfile = makeGetUserProfileService()
 
   const { user } = await getUserProfile.execute({
     userId: request.user.sub,
   })
-  console.log(request.user.sub, user)
   return reply.status(200).send({
     user: {
       ...user,
