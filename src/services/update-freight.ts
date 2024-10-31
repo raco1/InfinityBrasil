@@ -22,15 +22,8 @@ export class UpdateFreightUseService {
     status,
     updated_at,
   }: UpdateFreightUseServiceRequest): Promise<UpdateFreightUseServiceResponse> {
-    const isFreightExists =
-      await this.freightsRepository.findByCompanyId(company_id)
 
-    if (isFreightExists?.status !== 'Disponivel') {
-      throw new Error('Não é mais possível realizar mudanças no frente.')
-    }
-
-    const freight = await this.freightsRepository.create({
-      company_id: isFreightExists.company_id,
+    const freight = await this.freightsRepository.update(company_id, {
       status,
       updated_at,
     })

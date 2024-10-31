@@ -22,8 +22,9 @@ export async function freightsRoutes(app: FastifyInstance) {
     freights,
   )
 
+  //* Alterar o status do frete assim que finalizar (Somente entregadores) */
   app.patch(
-    '/freight/update',
+    '/freight/:freight_id/update',
     { onRequest: verifyUserProfile('Deliverer') },
     update,
   )

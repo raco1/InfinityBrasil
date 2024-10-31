@@ -3,11 +3,12 @@ import { makeGetUserProfileService } from '@/services/factory/make-get-user-prof
 
 export function verifyUserProfile(profileToVerify: 'Company' | 'Deliverer') {
   return async (request: FastifyRequest, reply: FastifyReply) => {
+    await request.jwtVerify()
     const getUserProfile = makeGetUserProfileService()
     const { user } = await getUserProfile.execute({
       userId: request.user.sub,
     })
-
+    console.log(user.profile)
     if (user.profile !== profileToVerify) {
       return reply.status(401).send({ message: 'Unauthorized.' })
     }

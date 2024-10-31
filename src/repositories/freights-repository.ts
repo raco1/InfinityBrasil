@@ -5,5 +5,5 @@ export interface FreightRepository {
   findAll(): Promise<Freight[]>
   findByCompanyId(company_id: string): Promise<Freight | null>
   create(data: Prisma.FreightUncheckedCreateInput): Promise<Freight>
-  update(plate: string, data: Prisma.FreightUpdateInput): Promise<Freight>
+  update(id: string, data: Prisma.FreightUpdateInput): Promise<Freight>
 }
