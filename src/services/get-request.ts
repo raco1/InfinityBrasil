@@ -1,27 +1,18 @@
 import { RequestRepository } from '@/repositories/request-repository'
-import { Request } from '@prisma/client'
-
-interface GetRequestServiceRequest {
-  id: string
-}
-
-interface GetRequestServiceResponse {
-  request: Request
-}
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 export class GetRequestService {
   constructor(private requestsRepository: RequestRepository) {}
 
-  async execute({
-    id,
-  }: GetRequestServiceRequest): Promise<GetRequestServiceResponse> {
-    const request = await this.requestsRepository.findById(id)
+  async execute() {
+    const request = await this.requestsRepository.findAll()
 
-    if (request && request.deliverer_id === id) {
-      return {
-        request,
-      }
+    if (!request) {
+      throw new ResourceNotFoundError()
     }
-    throw new Error('Não há solicitações para você no momento.')
+
+    return {
+      request,
+    }
   }
 }

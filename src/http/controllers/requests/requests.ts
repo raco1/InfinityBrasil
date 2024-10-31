@@ -8,9 +8,7 @@ export async function requests(request: FastifyRequest, reply: FastifyReply) {
 
   const getRequestService = new GetRequestService(requestRepository)
 
-  const getRequestAvailabe = await getRequestService.execute({
-    id: request.user.sub,
-  })
+  const getRequestAvailabe = await getRequestService.execute()
 
   const requests = getRequestAvailabe.request
 
