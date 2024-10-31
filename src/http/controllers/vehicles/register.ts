@@ -1,12 +1,9 @@
 import { PrismaVehiclesRepository } from '@/repositories/prisma/prisma-vehicles-repository'
-import { CreateVehicleUseService } from '@/services/create-vehicle'
+import { CreateVehicleUseService } from '@/services/register-vehicle'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
-export async function createVehicle(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+export async function register(request: FastifyRequest, reply: FastifyReply) {
   const createVehicleBodySchema = z.object({
     name: z.string(),
     plate: z.string().max(6),
