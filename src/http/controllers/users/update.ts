@@ -6,6 +6,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 export async function update(request: FastifyRequest, reply: FastifyReply) {
+  await request.jwtVerify()
   const userRepository = new PrismaUsersRepository()
 
   const getUserProfile = new GetUserProfileService(userRepository)
