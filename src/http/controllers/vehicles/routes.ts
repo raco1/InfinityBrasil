@@ -10,5 +10,9 @@ export async function vehiclesRoutes(app: FastifyInstance) {
     { onRequest: [verifyJWT, verifyUserProfile('Deliverer')] },
     register,
   )
-  app.patch('/vehicle/update', update)
+  app.patch(
+    '/vehicle/update',
+    { onRequest: [verifyJWT, verifyUserProfile('Deliverer')] },
+    update,
+  )
 }

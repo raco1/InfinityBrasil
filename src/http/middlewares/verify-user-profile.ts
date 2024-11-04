@@ -1,5 +1,5 @@
-import { FastifyReply, FastifyRequest } from 'fastify'
 import { makeGetUserProfileService } from '@/services/factory/make-get-user-profile-service'
+import { FastifyReply, FastifyRequest } from 'fastify'
 
 export function verifyUserProfile(profileToVerify: 'Company' | 'Deliverer') {
   return async (request: FastifyRequest, reply: FastifyReply) => {
@@ -8,7 +8,6 @@ export function verifyUserProfile(profileToVerify: 'Company' | 'Deliverer') {
     const { user } = await getUserProfile.execute({
       userId: request.user.sub,
     })
-    console.log(user.profile)
     if (user.profile !== profileToVerify) {
       return reply.status(401).send({ message: 'Unauthorized.' })
     }

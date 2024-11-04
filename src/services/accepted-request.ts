@@ -3,10 +3,6 @@ import { PrismaRequestRepository } from '@/repositories/prisma/prisma-request-re
 import { PrismaVehiclesRepository } from '@/repositories/prisma/prisma-vehicles-repository'
 import { VehicleType } from '@/@types/vehicle-type'
 
-interface AcceptDeliveryRequestServiceRequest {
-  request_id: string
-}
-
 export class AcceptDeliveryRequestService {
   constructor(
     private requestsRepository: PrismaRequestRepository,
@@ -14,9 +10,10 @@ export class AcceptDeliveryRequestService {
     private vehiclesRepository: PrismaVehiclesRepository,
   ) {}
 
-  async execute({ request_id }: AcceptDeliveryRequestServiceRequest) {
+  async execute(id: string) {
+    console.log(id, 'oi')
     // Buscar a solicitação de entrega
-    const deliveryRequest = await this.requestsRepository.findById(request_id)
+    const deliveryRequest = await this.requestsRepository.findById(id)
     if (!deliveryRequest) throw new Error('Request not found')
 
     // Buscar o frete associado
@@ -30,9 +27,11 @@ export class AcceptDeliveryRequestService {
       deliveryRequest.deliverer_id,
     )
     if (!vehicle) throw new Error('Vehicle not found')
-    // Calcular o valor e a taxa
 
     const updated_at = new Date()
+
+    // Calcular o valor e a taxa
+
     const { distance } = freight
     const { type: vehicleType } = vehicle
 
@@ -64,12 +63,22 @@ export class AcceptDeliveryRequestService {
         throw new Error('Tipo de veículo inválido')
     }
     // Atualizar o frete com os novos valores
-    return await this.freightsRepository.update(freight.id, {
+    const freightUpdated = await this.freightsRepository.update(freight.id, {
+      deliverer_id: deliveryRequest.deliverer_id,
       value: freight.value,
       fee: freight.fee,
       can_value_change: false,
       status: 'Em_andamento',
       updated_at,
     })
+
+    const requestUpdated = await this.requestsRepository.update(
+      deliveryRequest.id,
+      {
+        Status: 'Aceito',
+      },
+    )
+
+    return { freightUpdated, requestUpdated }
   }
 }

@@ -1,5 +1,5 @@
 import { PrismaFreightsRepository } from '@/repositories/prisma/prisma-freight-repository'
-import { GetFreightService } from '../get-freights'
+import { GetFreightService } from '../get-all-freights'
 
 export function makeGetFreightService() {
   const freightsRepository = new PrismaFreightsRepository()

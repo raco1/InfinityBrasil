@@ -3,10 +3,12 @@ import { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 
 export class PrismaRequestRepository implements RequestRepository {
-  async findById(request_id: string) {
-    return prisma.request.findUnique({
-      where: { id: request_id },
+  async findById(id: string) {
+    const request = await prisma.request.findUnique({
+      where: { id },
     })
+    console.log('Resultado da busca:', request)
+    return request
   }
 
   async findByDelivererId(deliverer_id: string) {

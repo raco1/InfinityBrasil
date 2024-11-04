@@ -7,6 +7,7 @@ import { FastifyInstance } from 'fastify'
 import { requests } from './requests'
 
 export async function requestsRoutes(app: FastifyInstance) {
+  //* Visualizar solicitações abertas (Somente empresa) */
   app.get(
     '/requests',
     { onRequest: [verifyJWT, verifyUserProfile('Company')] },
@@ -25,13 +26,13 @@ export async function requestsRoutes(app: FastifyInstance) {
   //* Atualizações de frete */
   //* Aceitar solicitação */
   app.patch(
-    '/requests/:request_id/accept',
+    '/requests/:id/accept',
     { onRequest: [verifyJWT, verifyUserProfile('Company')] },
     acceptDeliveryRequest,
   )
   //* Rejeitar solicitação */
   app.patch(
-    '/requests/:request_id/decline',
+    '/requests/:id/decline',
     { onRequest: [verifyJWT, verifyUserProfile('Company')] },
     declineDeliveryRequest,
   )

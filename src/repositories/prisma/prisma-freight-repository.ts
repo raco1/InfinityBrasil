@@ -12,6 +12,15 @@ export class PrismaFreightsRepository implements FreightRepository {
     return freight
   }
 
+  async findManyById(deliverer_id: string) {
+    const freights = await prisma.freight.findMany({
+      where: {
+        deliverer_id,
+      },
+    })
+    return freights
+  }
+
   async findAll() {
     const freight = await prisma.freight.findMany()
     return freight
@@ -24,6 +33,17 @@ export class PrismaFreightsRepository implements FreightRepository {
       },
     })
     return company
+  }
+
+  async findFreightsByDelivererId(deliverer_id: string) {
+    return await prisma.freight.findMany({
+      where: {
+        deliverer_id,
+        status: {
+          in: ['Em_andamento', 'Entregue'],
+        },
+      },
+    })
   }
 
   async create(data: Prisma.FreightUncheckedCreateInput) {

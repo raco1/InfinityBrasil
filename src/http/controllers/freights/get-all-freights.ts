@@ -2,7 +2,10 @@ import { NoFreightsAvailabeError } from '@/services/errors/no-freights-availabe-
 import { makeGetFreightService } from '@/services/factory/make-get-freight-service'
 import { FastifyReply, FastifyRequest } from 'fastify'
 
-export async function freights(request: FastifyRequest, reply: FastifyReply) {
+export async function getAllFreights(
+  _request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const getFreightService = await makeGetFreightService().execute()
 
   const freights = getFreightService.freight
@@ -12,9 +15,7 @@ export async function freights(request: FastifyRequest, reply: FastifyReply) {
   )
 
   try {
-    return reply.status(200).send({
-      isAvailabe,
-    })
+    return reply.status(200).send(isAvailabe)
   } catch (err) {
     throw new NoFreightsAvailabeError()
   }

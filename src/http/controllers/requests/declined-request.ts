@@ -8,7 +8,7 @@ export async function declineDeliveryRequest(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const { request_id } = request.params as { request_id: string }
+  const { id } = request.params as { id: string }
 
   // Instanciar os repositórios e o serviço
   const requestsRepository = new PrismaRequestRepository()
@@ -22,10 +22,10 @@ export async function declineDeliveryRequest(
   )
   try {
     // Executar o serviço e obter a resposta
-    const { Status } = await declineDeliveryRequestService.execute({
-      request_id,
+    await declineDeliveryRequestService.execute({
+      id,
     })
-    return reply.status(200).send({ Status })
+    return reply.status(200).send()
   } catch (err) {
     console.log()
     return reply.status(404).send()

@@ -3,7 +3,7 @@ import { PrismaRequestRepository } from '@/repositories/prisma/prisma-request-re
 import { PrismaVehiclesRepository } from '@/repositories/prisma/prisma-vehicles-repository'
 
 interface DeclineDeliveryRequestServiceRequest {
-  request_id: string
+  id: string
 }
 
 export class DeclineDeliveryRequestService {
@@ -13,9 +13,9 @@ export class DeclineDeliveryRequestService {
     private vehiclesRepository: PrismaVehiclesRepository,
   ) {}
 
-  async execute({ request_id }: DeclineDeliveryRequestServiceRequest) {
+  async execute({ id }: DeclineDeliveryRequestServiceRequest) {
     // Buscar a solicitação de entrega
-    const deliveryRequest = await this.requestsRepository.findById(request_id)
+    const deliveryRequest = await this.requestsRepository.findById(id)
     if (!deliveryRequest) throw new Error('Request not found')
 
     // Buscar o frete associado
@@ -32,9 +32,19 @@ export class DeclineDeliveryRequestService {
 
     const updated_at = new Date()
     // Atualizar o frete com os novos valores
-    return await this.requestsRepository.update(deliveryRequest.id, {
-      Status: 'Rejeitado',
-      updated_at,
-    })
+    const freightUpdated = await this.requestsRepository.update(
+      deliveryRequest.id,
+      {
+        Status: 'Rejeitado',
+        updated_at,
+      },
+    )
+    const requestUpdated = await this.requestsRepository.update(
+      deliveryRequest.id,
+      {
+        Status: 'Rejeitado',
+      },
+    )
+    return { freightUpdated, requestUpdated }
   }
 }

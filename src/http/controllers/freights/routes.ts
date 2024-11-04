@@ -1,8 +1,10 @@
 import { verifyUserProfile } from '@/http/middlewares/verify-user-profile'
+import { getDelivererFreights } from './get-deliverer-freights'
+import { getCompanyFreights } from './get-company-freights'
 import { verifyJWT } from '@/http/middlewares/verify-jwt'
+import { getAllFreights } from './get-all-freights'
 import { FastifyInstance } from 'fastify'
 import { register } from './register'
-import { freights } from './freights'
 import { update } from './update'
 
 export async function freightsRoutes(app: FastifyInstance) {
@@ -13,13 +15,31 @@ export async function freightsRoutes(app: FastifyInstance) {
     register,
   )
 
+  //* Visualizar os fretes (Somente a empresa) */
+  app.get(
+    '/freights/company/:company_id',
+    {
+      onRequest: [verifyJWT, verifyUserProfile('Company')],
+    },
+    getCompanyFreights,
+  )
+
+  //* Visualizar os fretes em andamento/concluídos (Somente o entregador) */
+  app.get(
+    '/freights/deliverer/:deliverer_id',
+    {
+      onRequest: [verifyJWT, verifyUserProfile('Deliverer')],
+    },
+    getDelivererFreights,
+  )
+
   //* Visualizar os fretes disponíveis (Somente entregadores) */
   app.get(
     '/freights',
     {
       onRequest: [verifyJWT, verifyUserProfile('Deliverer')],
     },
-    freights,
+    getAllFreights,
   )
 
   //* Alterar o status do frete assim que finalizar (Somente entregadores) */
