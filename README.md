@@ -40,7 +40,11 @@ O fluxograma abaixo foi criado por mim e pode ser acesso em: https://drawsql.app
 
 ![fluxograma](https://github.com/user-attachments/assets/4e9b7b44-580a-455c-a4c3-94925e383d8e)
 
+🚧 Executando o Back-End:
 
+- Clone o projeto para o local desejado em sua máquina.
+
+        $ git clone https://github.com/raco1/InfinityBrasil
 ## 🎨 Configuração
 
 - @rocketseat/eslint-config e eslint
