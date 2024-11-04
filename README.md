@@ -14,6 +14,7 @@ Esse projeto é o Back-end da prova para vaga de Analista de Desenvolvimento Jun
 -  <a href="#-pdf-relatorios">PDF e Relatórios</a>
 -  <a href="#-validacao-dados">Validação de dados</a>
 -  <a href="#-utilitatios-ambiente">Utilitários de Ambiente</a>
+-  <a href="#fluxograma">Fluxograma</a>
 -  <a href="#-autor">Autor</a>
 -  <a href="#-licença">Licença</a>
 
@@ -93,7 +94,11 @@ Esse projeto é o Back-end da prova para vaga de Analista de Desenvolvimento Jun
 
                 $ npm install dotenv
 
+## Fluxograma
+
+O fluxograma abaixo foi criado por mim e pode ser acesso em: https://drawsql.app/teams/raco/diagrams/infinitybrasil
 ## 🙂 Autor
+
 
 Feito por Rafael Coelho Reis, [@raco1](https://www.github.com/raco1)! Acompanhe-me no LinkedIn: [Rafael Coelho](https://www.linkedin.com/in/rafael-coelho-reis-873181204/) 👋
 
