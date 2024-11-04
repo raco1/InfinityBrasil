@@ -96,7 +96,7 @@ Esse projeto é o Back-end da prova para vaga de Analista de Desenvolvimento Jun
 
 ## Fluxograma
 
-O fluxograma abaixo foi criado por mim e pode ser acesso em: https://drawsql.app/teams/raco/diagrams/infinitybrasil
+O fluxograma foi criado por mim e pode ser acesso em: https://drawsql.app/teams/raco/diagrams/infinitybrasil
 ## 🙂 Autor
 
 
