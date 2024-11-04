@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -21,47 +15,48 @@ model User {
   profile       Profile   @default(Deliverer)
   active        Boolean   @default(false)
   created_at    DateTime  @default(now())
-  updated_at    DateTime  @updatedAt @default(now())
-  Vehicle       Vehicle[]
+  updated_at    DateTime  @default(now()) @updatedAt
   Freight       Freight[]
   Requests      Request[]
+  Vehicle       Vehicle[]
 }
 
 model Vehicle {
   id         String   @id @default(uuid())
   user_id    String
-  User       User     @relation(fields: [user_id], references: [id])
   name       String
   plate      String   @unique
   year       Int
-  type       Type     @default(Caminhonete)
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt @default(now())
+  type       Type     @default(Caminhonete)
+  updated_at DateTime @default(now()) @updatedAt
+  User       User     @relation(fields: [user_id], references: [id])
 }
 
 model Freight {
   id               String        @id @default(uuid())
   company_id       String
-  User             User          @relation(fields: [company_id], references: [id])
+  deliverer_id     String?  
   distance         Int
   value            Float?
-  fee              Float?
   status           StatusFreight @default(Disponivel)
   posted_at        DateTime      @default(now())
-  updated_at       DateTime      @updatedAt
   can_value_change Boolean       @default(true)
+  fee              Float?
+  updated_at       DateTime      @updatedAt
+  User             User          @relation(fields: [company_id], references: [id])
   Request          Request[]
 }
 
 model Request {
   id           String        @id @default(uuid())
   deliverer_id String
-  User         User          @relation(fields: [deliverer_id], references: [id])
   freight_id   String
-  Freight      Freight       @relation(fields: [freight_id], references: [id])
   Status       StatusRequest @default(Pendente)
   requested_at DateTime      @default(now())
   updated_at   DateTime      @updatedAt
+  User         User          @relation(fields: [deliverer_id], references: [id])
+  Freight      Freight       @relation(fields: [freight_id], references: [id])
 }
 
 enum Profile {
