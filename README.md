@@ -39,7 +39,6 @@ Esse projeto é o Back-end da prova para vaga de Analista de Desenvolvimento Jun
 O fluxograma foi criado por mim e pode ser acesso em: https://drawsql.app/teams/raco/diagrams/infinitybrasil
 
 
-## 🙂 Autor
 ## 🎨 Configuração
 
 - @rocketseat/eslint-config e eslint
@@ -115,7 +114,7 @@ O fluxograma foi criado por mim e pode ser acesso em: https://drawsql.app/teams/
 
                 $ npm install dotenv
 
-
+## 🙂 Autor
 Feito por Rafael Coelho Reis, [@raco1](https://www.github.com/raco1)! Acompanhe-me no LinkedIn: [Rafael Coelho](https://www.linkedin.com/in/rafael-coelho-reis-873181204/) 👋
 
 
