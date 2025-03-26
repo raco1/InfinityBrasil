@@ -1,7 +1,7 @@
 
-# 🚀 Prova PS Infinity Brasil
+# 🚀 Empresa XYZ
 
-Esse projeto é o Back-end da prova para vaga de Analista de Desenvolvimento Junior.
+Esse projeto foi primeiramente desenvolvido para simular um programa para gerenciar fretes de uma empresa.
 
 
 ## 🔍 Índice
